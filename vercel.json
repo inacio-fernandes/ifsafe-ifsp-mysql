@@ -1,7 +1,9 @@
 {
-  "routes": [
+  "version": 2,
+  "builds": [
     {
-      "src": "/dados"
+      "src": "index.js",
+      "use": "@vercel/node"
     }
   ]
 }
