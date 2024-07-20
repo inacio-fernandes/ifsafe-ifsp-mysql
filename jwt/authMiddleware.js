@@ -34,6 +34,13 @@ async function authMiddleware(req, res, next) {
 
     const userFromDB = rows[0];
     req.user = userFromDB;
+    // alterar 1 0 por true false no admin do banco
+    if (req.user.admin == 1) {
+      req.user.admin = true;
+    }
+    else {
+      req.user.admin = false;
+    }
     console.log("req.user dentro do auth", req.user);
     
     
