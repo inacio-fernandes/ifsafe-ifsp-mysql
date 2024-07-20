@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
           image: post.image,
           title: post.title,
           location: post.location,
-          authorId: post.authorId,
+          authorId: post.authorId.string(),
           authorName: post.authorName,
           date: post.date,
           status: post.status,
@@ -122,7 +122,7 @@ router.get("/:id", async (req, res) => {
     const [rowsComments] = await pool.query(queryComments, [post._id]);
 
     const postWithComments = {
-      _id: post._id,
+      _id: post._id.string(),
       description: post.description,
       image: post.image,
       title: post.title,
