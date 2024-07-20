@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const pool = require("../conexaobd");
+const e = require("express");
 
 // Segredo para assinar o JWT (deve ser armazenado em uma variável de ambiente)
 const JWT_SECRET = "ifsp";
@@ -25,6 +26,13 @@ router.post("/", async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "500h" });
+    //trocar 1 ou 0 por true ou false no admin do banco
+    if (user.admin == 1) {
+      user.admin = true;
+    }else{
+      user.admin = false;
+    }
+
 
     res.send({
       token,
