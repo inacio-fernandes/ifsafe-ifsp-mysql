@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const pool = require("./conexaobd");
+const pool = require("../conexaobd");
 
 const JWT_SECRET = "ifsp";
 
