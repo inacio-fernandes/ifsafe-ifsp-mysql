@@ -122,7 +122,7 @@ router.get("/:id", async (req, res) => {
     const [rowsComments] = await pool.query(queryComments, [post._id]);
 
     const postWithComments = {
-      _id: post._id.string(),
+      _id: post._id,
       description: post.description,
       image: post.image,
       title: post.title,
