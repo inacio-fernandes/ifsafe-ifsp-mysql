@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
           image: post.image,
           title: post.title,
           location: post.location,
-          authorId: post.authorId.string(),
+          authorId: post.authorId.toString(),
           authorName: post.authorName,
           date: post.date,
           status: post.status,
@@ -69,7 +69,6 @@ router.get("/", async (req, res) => {
     console.error("Erro ao buscar todos posts:", error);
   }
 });
-
 
 // Pegar um post com id específico
 router.get("/:id", async (req, res) => {
@@ -127,7 +126,7 @@ router.get("/:id", async (req, res) => {
       image: post.image,
       title: post.title,
       location: post.location,
-      authorId: post.authorId,
+      authorId: post.authorId.toString(),
       authorName: post.authorName,
       date: post.date,
       status: post.status,
@@ -141,8 +140,6 @@ router.get("/:id", async (req, res) => {
     console.error("Erro ao buscar post:", error);
   }
 });
-
-
 
 // Pegar todos os posts de um autor
 router.get("/autor/:id", async (req, res) => {
@@ -160,8 +157,6 @@ router.get("/autor/:id", async (req, res) => {
     console.error("Erro ao buscar posts:", error);
   }
 });
-
-
 
 // Rota para criar um novo post
 router.post("/", validatePostData, async (req, res) => {
@@ -193,9 +188,6 @@ function validatePostData(req, res, next) {
   req.body = { description, image, title, location };
   next();
 }
-
-
-
 
 // Rota para alterar o STATUS de um post com um ID específico
 router.put("/status/:id", async (req, res) => {
@@ -265,18 +257,15 @@ router.post("/comments/:id", async (req, res) => {
   }
 });
 
-
 // Adicionar uma curtida em um post específico
 router.post("/likes/:id", async (req, res) => {
   try {
-
     const { id } = req.params;
 
-    const [result] = await pool.query(
-      "INSERT into likes SET  ?",
-      { userId: req.user._id, postId: id, } 
-
-    );
+    const [result] = await pool.query("INSERT INTO likes SET ?", {
+      userId: req.user._id,
+      postId: id,
+    });
     if (result.affectedRows === 0) {
       return res.status(404).send("ID de post não encontrado");
     }
@@ -287,6 +276,5 @@ router.post("/likes/:id", async (req, res) => {
     res.status(500).send("Erro ao adicionar like");
   }
 });
-
 
 module.exports = router;

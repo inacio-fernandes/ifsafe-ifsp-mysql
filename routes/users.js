@@ -30,6 +30,14 @@ const verifyIdenty = (req, res, next) => {
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users");
+    //trocar 0 ou 1 por true ou false no admin do banco
+    rows.forEach((row) => {
+      if (row.admin == 1) {
+        row.admin = true;
+      } else {
+        row.admin = false;
+      }
+});
     res.status(200).send(rows);
   } catch (error) {
     console.error("Erro ao buscar todos usuários:", error);

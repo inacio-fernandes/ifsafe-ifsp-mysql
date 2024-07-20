@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
       user.admin = false;
     }
 
-
+    console.log(user.admin);
     res.send({
       token,
       user: {
