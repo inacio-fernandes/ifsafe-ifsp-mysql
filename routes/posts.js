@@ -70,6 +70,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+//chamar uma view chamada post_details (SELECT * FROM post_details;)
+
+router.get("/view", async (req, res) => {
+  try {
+    const queryPosts = `
+      SELECT
+        *
+      FROM
+        post_details
+      ORDER BY
+        date DESC
+    `;
+    const [rowsPosts] = await pool.query(queryPosts);
+    res.status(200).send(rowsPosts);
+  } catch (error) {
+    res.status(500).send("Erro ao buscar todos posts");
+    console.error("Erro ao buscar todos posts:", error);
+  }
+});
+
+
+      
+
+
 // Pegar um post com id específico
 router.get("/:id", async (req, res) => {
   try {
